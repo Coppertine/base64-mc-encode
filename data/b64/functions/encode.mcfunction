@@ -1,9 +1,8 @@
 from bolt_expressions import Scoreboard, Data
-from ./math/bitwise/ops import lshift
+from b64:ops import lshift
 storage = Data.storage(b64:convert)
-score = Scoreboard("b64.tmp")
-math_score = Scoreboard("b64.math")
-
+score = Scoreboard("b64.tmp", "dummy")
+math_score = Scoreboard("b64.math", "dummy")
 
 def rshift(a,b):
     math_score["$a"] = a
@@ -24,9 +23,6 @@ storage.padding = []
 storage.tmp = []
 storage.tmp_single = ""
 
-
-# storage.input = ["h","e","l","l","o"," ","w","o","r","l","d"]
-tellraw @a storage.input
 storage.string = []
 storage.tmp_section = []
 storage.section = []
@@ -54,9 +50,6 @@ if score var score["$chunk"] matches 1.. run function b64:add_padding:
         storage.string.append('')
         score["$iterator"] += 1
         if score var score["$iterator"] matches ..3 run function b64:loop
-# Debug to see if the padding is added...
-tellraw @a "added padding"
-tellraw @a storage.padding
 
 score["$chunk"] = 0
 if score var score["$chunk"] < var score["$length"] run function b64:string_increment:
@@ -102,7 +95,7 @@ if score var score["$chunk"] < var score["$length"] run function b64:string_incr
     score["$n3"] = bitwise_and(score["$n3"],63)
     score["$n0"] = bitwise_and(rshift(score["$n0"], 18), 63)
     score["$n1"] = bitwise_and(rshift(score["$n1"], 12), 63)
-    score["$n2"] = bitwise_and(rshift(score["$n2"], 6),63)
+    score["$n2"] = bitwise_and(rshift(score["$n2"], 6), 63)
     # tellraw @a [score['$n0'], ",", score['$n1'],",",score['$n2'],",",score['$n3']]
 
     for x in [score["$n0"], score["$n1"], score["$n2"], score["$n3"]]:
@@ -128,4 +121,4 @@ if score var score["$i"] < var score["$paddinglen"] run function b64:padding_app
     score["$i"] = score["$i"] + 1
     if score var score["$i"] < var score["$paddinglen"] run function b64:padding_append
 
-tellraw @a [storage.result.component(interpret=true)]
+# tellraw @a [storage.result.component(interpret=true)]

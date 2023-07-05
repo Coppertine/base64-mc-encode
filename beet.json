@@ -1,15 +1,16 @@
 {
-    "name": "Base64 Encode",
-    "author": "Coppertine",
-    "description": "Test for encoding text to b64",
-    "require": ["bolt","bolt_expressions"],
-    "data_pack": {
-        "load": ["."]
-    },
-    "pipeline": ["mecha"],
+  "name": "Base64 Encode",
+  "author": "Coppertine",
+  "description": "Base64 Encoder",
+  "require": ["bolt", "bolt_expressions"],
+  "data_pack": {
+    "load": ["."]
+  },
+  "version": "0.1",
+  "pipeline": ["mecha"],
   "meta": {
-    "bolt": {"entrypoint": "b64:main"}
+    "bolt": { "entrypoint": "b64:encode" }
   },
 
-    "output": "build"
+  "output": "build"
 }
