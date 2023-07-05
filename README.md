@@ -46,6 +46,10 @@ beet build
 ```
 the built datapack will be found in the `build` folder.
 
+## Screenshot
+![image](https://github.com/Coppertine/base64-mc-encode/assets/37494321/6a3ed961-0e7a-4a61-b245-706fb67db4bf)
+
+
 ## Attributions
 [Minecraft Phi](https://github.com/MinecraftPhi/MinecraftPhi-modules/tree/master/phi.bitwise/src/datapack)
 
