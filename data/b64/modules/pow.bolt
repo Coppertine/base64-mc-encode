@@ -14,12 +14,12 @@ def pow(base, exp):
     _exp = exp
     _result = 1
 
-    if score var _exp matches 1.. function ./exp:
+    if score var _exp matches 1.. function ./math/exp:
         _result *= _base
         _exp -= 1
 
         if score var _exp matches 1..
-            function ./exp
+            function ./math/exp
 
     _output = value["$" + next(identifiers)]
     _output = _result

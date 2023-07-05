@@ -1,6 +1,5 @@
 from bolt_expressions import Scoreboard
-from ../pow import pow
-import sys
+from b64:pow import pow
 
 score = Scoreboard("b64.math")
 # inputs: $a, $b
