@@ -75,17 +75,18 @@ if score var score["$chunk"] < var score["$length"] run function b64:string_incr
     # TODO: Improve on this to use Scoreboards... storage is slow as hell and we are reading it twice
     for x in range(3):
         storage.input_single = storage.tmp_section[x]
-        function b64:get_bitcode
-        score[f"$b{x}"] = score["$output_bitcode"]
-    # tellraw @a storage.section
-    
+        # pls make this:
+        # score[f"$b{x}"] = function b64:get_bitcode
+        execute store result score var score[f"$b{x}"] run function b64:get_bitcode
+
     # [0] << 16, [1] << 8
-    storage.section[0] = lshift(storage.section[0], 16)
-    storage.section[1] = lshift(storage.section[1], 8)
+    score["$b0"] = lshift(score["$b0"], 16)
+    score["$b1"] = lshift(score["$b1"], 8)
 
     score['$n'] = 0
-    score["$n"] = storage.section[0] + storage.section[1] + storage.section[2]
+    score["$n"] = score["$b0"] + score["$b1"] + score["$b2"]
     
+    # due to some fuckery, i want to ensure they compute on their own values and not cross-contaminate
     score["$n3"] = score["$n"]
     score["$n0"] = score["$n"]
     score["$n1"] = score["$n"]
