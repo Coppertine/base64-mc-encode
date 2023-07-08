@@ -76,7 +76,7 @@ if score var score["$chunk"] < var score["$length"] run function b64:string_incr
     for x in range(3):
         storage.input_single = storage.tmp_section[x]
         function b64:get_bitcode
-        storage.section.append(storage.output_bitcode)
+        score[f"$b{x}"] = score["$output_bitcode"]
     # tellraw @a storage.section
     
     # [0] << 16, [1] << 8
