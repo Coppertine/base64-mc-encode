@@ -1,5 +1,5 @@
 from bolt_expressions import Scoreboard, Data
-from nbtlib import Byte
+
 l = "0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz /@_~^!#{:}$%&'()|*+,-.;<=>?[\"\\]`"
 
 # TODO: get_bitcode still reads all other commands even if only 1 command is properly executed. Try to optimise this.
