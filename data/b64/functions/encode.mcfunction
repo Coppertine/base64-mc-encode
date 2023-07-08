@@ -71,8 +71,7 @@ if score var score["$chunk"] < var score["$length"] run function b64:string_incr
         if score var score["$i"] > var score["$chunk2"] run function b64:substr_chunk_end
     # We SHOULD have an array of just 3 elements.... I hope.. edit: yep
    #  tellraw @a storage.tmp_section
-    
-    # TODO: Improve on this to use Scoreboards... storage is slow as hell and we are reading it twice
+
     for x in range(3):
         storage.input_single = storage.tmp_section[x]
         # pls make this:
