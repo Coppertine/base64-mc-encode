@@ -6,7 +6,7 @@
   "data_pack": {
     "load": ["."]
   },
-  "version": "0.2",
+  "version": "0.3",
   "pipeline": ["mecha"],
   "meta": {
     "bolt": { "entrypoint": "b64:encode" }
