@@ -19,13 +19,13 @@ def bitwise_and(a,b):
 
 chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 storage.result = []
-storage.padding = []
 storage.tmp = []
 storage.tmp_single = ""
 
 storage.string = []
 storage.tmp_section = []
 storage.section = []
+score["$padding"] = 0
 
 # generating the tree to grab the spesific character from the b64 char list
 for node in generate_tree(range(len(chars)), name="get_char", root=(b64:get_b64_char)):
@@ -46,31 +46,35 @@ score["$chunk"] = score["$length"] % 3
 if score var score["$chunk"] matches 1.. run function b64:add_padding:
     score["$iterator"] = score["$chunk"]
     if score var score["$iterator"] matches ..3 run function b64:loop:
-        storage.padding.append('=')
+        score["$padding"] += 1
         storage.string.append('')
         score["$iterator"] += 1
         if score var score["$iterator"] matches ..3 run function b64:loop
 
-score["$chunk"] = 0
-if score var score["$chunk"] < var score["$length"] run function b64:string_increment:
 
+score["$chunk"] = 0
+execute store result score var score["$lengthWPadd"] run data get var storage.string
+if score var score["$chunk"] < var score["$length"] run function b64:string_increment:
     storage.section = []
     storage.tmp_section = storage.string
-    score["$chunk2"] = score["$chunk"] + 1
+    score["$chunk2"] = score["$chunk"] + 3
     score["$i"] = 0
-    # tellraw @a score["$chunk"]
+    # tellraw @a ["$chunk: ", score["$chunk"]]
+
     if score var score["$i"] < var score["$chunk"] run function b64:substr_chunk_start:
         data remove var storage.tmp_section[0]
         score["$i"] += 1
         if score var score["$i"] < var score["$chunk"] run function b64:substr_chunk_start
         
-    score["$i"] = score["$length"]
+    score["$i"] = score["$lengthWPadd"]
+    # tellraw @a ["$chunk2: ", score["$chunk2"]]
+
     if score var score["$i"] > var score["$chunk2"] run function b64:substr_chunk_end:
         data remove var storage.tmp_section[-1]
         score["$i"] -= 1
         if score var score["$i"] > var score["$chunk2"] run function b64:substr_chunk_end
     # We SHOULD have an array of just 3 elements.... I hope.. edit: yep
-   #  tellraw @a storage.tmp_section
+    # tellraw @a storage.tmp_section
 
     for x in range(3):
         storage.input_single = storage.tmp_section[x]
@@ -108,17 +112,17 @@ if score var score["$chunk"] < var score["$length"] run function b64:string_incr
 # tellraw @a storage.result
 
 # remove the fake padding, we need to start at 1 as somehow two pads are added...
-execute store result score var score["$paddinglen"] run data get var storage.padding
+# execute store result score var score["$paddinglen"] run data get var storage.padding
 score["$i"] = 1
-if score var score["$i"] < var score["$paddinglen"] run function b64:substr_result_end:
+if score var score["$i"] < var score["$padding"] run function b64:substr_result_end:
     data remove var storage.result[-1]
     score["$i"] += 1
-    if score var score["$i"] < var score["$paddinglen"] run function b64:substr_result_end
+    if score var score["$i"] < var score["$padding"] run function b64:substr_result_end
 
 score["$i"] = 1
-if score var score["$i"] < var score["$paddinglen"] run function b64:padding_append:
+if score var score["$i"] < var score["$padding"] run function b64:padding_append:
     storage.result.append("=")
-    score["$i"] = score["$i"] + 1
-    if score var score["$i"] < var score["$paddinglen"] run function b64:padding_append
+    score["$i"] += 1
+    if score var score["$i"] < var score["$padding"] run function b64:padding_append
 
 # tellraw @a [storage.result.component(interpret=true)]
