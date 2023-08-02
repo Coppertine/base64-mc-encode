@@ -3,7 +3,6 @@
 # Credit: phi
 # https://github.com/MinecraftPhi/MinecraftPhi-modules/tree/master/phi.bitwise/src/datapack/data/phi.bitwise/functions
 from bolt_expressions import Scoreboard
-from b64:pow import pow
 score = Scoreboard("b64.math")
 # Apparently, phi attmempts to multiply a and b by 2 until it overflows.
 
