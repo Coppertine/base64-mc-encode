@@ -1,5 +1,4 @@
-# Author: TheWii
-# https://canary.discord.com/channels/900530660677156924/1057459352635719690/1057645088173461516
+
 
 from bolt_expressions import Scoreboard, identifier_generator 
 
@@ -8,20 +7,22 @@ identifiers = identifier_generator(ctx)
 value = Scoreboard.objective("b64.math")
 
 def pow(base, exp):
-    _base, _exp, _result = value["$pow_base", "$pow_exp", "$pow_result"]
+    _base, _exp, _result, _temp = value["$pow_base", "$pow_exp", "$pow_result", "$temp"]
 
     _base = base
     _exp = exp
     _result = 1
-
-    if score var _exp matches 1.. function ./math/exp:
-        _result *= _base
-        _exp -= 1
-
+    # Credit: SuperSword
+    # Somehow, this is faster... yay!
+    # https://canary.discord.com/channels/154777837382008833/157097006500806656/1136145232916910190 
+    function ./math/pow:
+        _temp = _exp % 2
+        if score var _temp matches 1:
+            _result *= _base
+        _base *= _base
+        _exp /= 2
         if score var _exp matches 1..
-            function ./math/exp
-
-    _output = value["$" + next(identifiers)]
-    _output = _result
-    
-    return _output
+            function ./math/pow
+    # You would THINK that creating a function command inside a method would create and RUN the function.. NOPE
+    function ./math/pow
+    return _result
