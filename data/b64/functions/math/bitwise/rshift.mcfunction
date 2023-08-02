@@ -9,8 +9,7 @@ a = score["$a"]
 b = score["$b"]
 output = score["$output"]
 if score var a matches 1.. run function b64:math/bitwise/rshift_sign_prop:
-    output = a
-    output = output / pow(2, b)
+    output = a / pow(2, b)
 if score var a matches ..-1 run function b64:math/bitwise/rshift_zero_filling_neg:
     # overflow to clear sign bit
     a += 2147483647
